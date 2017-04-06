@@ -4,6 +4,7 @@ require "gdatastore_mapper/session"
 module GdatastoreMapper
   module Base
     extend ActiveSupport::Concern
+    include ActiveModel::Model
     include ActiveModel::Validations
 
     attr_accessor :id, :created_at, :updated_at
@@ -21,6 +22,7 @@ module GdatastoreMapper
           [:id, :created_at, :updated_at].include? attr
         end
       end
+
     end # end pf ClassMethods
 
     def attributes
