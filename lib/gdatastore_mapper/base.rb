@@ -23,6 +23,38 @@ module GdatastoreMapper
         end
       end
 
+      def query options = {}
+        query = Google::Cloud::Datastore::Query.new
+        query.kind self.to_s
+        query.limit options[:limit]   if options[:limit]
+        query.cursor options[:cursor] if options[:cursor]
+
+        results = dataset.run query
+        records   = results.map {|entity| self.from_entity entity }
+
+        if options[:limit] && results.size == options[:limit]
+          next_cursor = results.cursor
+        end
+
+        return records, next_cursor
+      end
+
+      def from_entity entity
+        record = self.new
+        record.id = entity.key.id
+        entity.properties.to_hash.each do |name, value|
+          record.send "#{name}=", value if record.respond_to? "#{name}="
+        end
+        record
+      end
+
+      def find id
+        query    = Google::Cloud::Datastore::Key.new self.to_s, id.to_i
+        entities = GdatastoreMapper::Session.dataset.lookup query
+
+        from_entity entities.first if entities.any?
+      end
+
     end # end pf ClassMethods
 
     def attributes
@@ -30,14 +62,11 @@ module GdatastoreMapper
     end
 
     def save
-      if valid?
-        entity = to_entity
-        GdatastoreMapper::Session.datastore.save(entity)
-        self.id = entity.key.id
-        true
-      else
-        false
-      end
+      return false if !valid?
+      entity = to_entity
+      GdatastoreMapper::Session.dataset.save(entity)
+      self.id = entity.key.id
+      true
     end
 
     def to_entity
@@ -53,5 +82,19 @@ module GdatastoreMapper
       entity
     end
 
+    def update attributes
+      attributes.each do |name, value|
+        send "#{name}=", value if respond_to? "#{name}="
+      end
+      save
+    end
+
+    def destroy
+      self.class.dataset.delete Google::Cloud::Datastore::Key.new self.class.to_s, id
+    end
+
+    def persisted?
+      id.present?
+    end
   end
 end

@@ -3,16 +3,16 @@ require "google/cloud"
 module GdatastoreMapper
   class Session
 
-    def self.datastore
+    def self.dataset
       config = Rails.application.config.database_configuration[Rails.env]
-      @datastore ||= Google::Cloud::Datastore.new(
+      @dataset ||= Google::Cloud::Datastore.new(
         project: config['dataset_id'],
         emulator_host: config['emulator_host']
       )
     end
 
     def self.destroy
-      @datastore = nil
+      @dataset = nil
     end
   end
 end
