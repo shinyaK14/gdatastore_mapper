@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Google Cloud Datastore Mapper in Ruby / Ruby on Rails}
   spec.description   = %q{Google Cloud Datastore ORM/ODM (Mapper) in Ruby and Ruby on Rails}
-  spec.homepage      = "https://github.com/shinyaK14/gcloud_orm_ruby"
+  spec.homepage      = "https://github.com/shinyaK14/gdatastore_mapper"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
