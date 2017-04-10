@@ -1,5 +1,7 @@
 module GdatastoreMapper
-  class Relation
-    include Enumerable
+  class Relation < Array
+    def initialize(klass)
+      @klass = klass
+    end
   end
 end

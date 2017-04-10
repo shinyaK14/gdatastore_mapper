@@ -1,4 +1,5 @@
 require "google/cloud"
+require "gdatastore_mapper/relation"
 
 module GdatastoreMapper
   module Scoping
@@ -47,9 +48,11 @@ module GdatastoreMapper
 
     def dataset_run query
       entities = GdatastoreMapper::Session.dataset.run query
-      entities.map do |entity|
-        from_entity entity
+      result = GdatastoreMapper::Relation.new(self)
+      entities.each do |entity|
+        result << (from_entity entity)
       end
+      result
     end
   end
 end
