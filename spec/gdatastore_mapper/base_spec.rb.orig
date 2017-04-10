@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+require "spec_helper"
+
+RSpec.describe GdatastoreMapper do
+
+  before do
+    allow(Rails).to receive(:application).and_return(ConfigMock)
+  end
+
+end
+
+=======
+require 'spec_helper'
+
+describe GdatastoreMapper::Base do
+  it 'returns the collection for the model' do
+    expect(instance_collection).to be_a(GdatastoreMapper::Base)
+  end
+end
+>>>>>>> 5f379295f7a1a3a3a79faa348aeed9f6c083a405

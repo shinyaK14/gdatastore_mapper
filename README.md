@@ -1,8 +1,7 @@
 # GdatastoreMapper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gdatastore_mapper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+GdatastoreMapper is a mapper framework for Google Cloud Datastore in Ruby / Ruby on Rails
+Once you install GdatastoreMapper you can use Google Cloud Datastore like ActiveRecord.
 
 ## Installation
 
@@ -20,9 +19,80 @@ Or install it yourself as:
 
     $ gem install gdatastore_mapper
 
+## Configuration
+
+GdatastoreMapper configuration can be done through a database.yml. The simplest configuration is as follows, which sets the emulator_host to "localhost:8444" and dataset_id.
+
+```
+# config/database.yml
+production:
+  dataset_id: your-google-cloud-platform-project-id
+
+staging:
+  dataset_id: your-google-cloud-platform-project-id
+
+development:
+  dataset_id: your-google-cloud-platform-project-id
+  emulator_host: localhost:8444
+
+test:
+  dataset_id: your-google-cloud-platform-project-id
+  emulator_host: localhost:8444
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+Only 2 things you need to do.
+
+1 To include GdatastoreMapper
+2 To set attr_accessor as column
+
+That's it!
+
+```ruby
+class Book
+  include GdatastoreMapper::Base
+
+  attr_accessor :title, :author
+end
+```
+
+## Persistence Methods
+
+```
+book = Book.new
+book.title = 'Harry Potter'
+book.save
+```
+```
+book = Book.new(title: 'Harry Potter')
+book.save
+```
+```
+Book.create(title: 'Harry Potter'
+```
+```
+book.update(title: 'Harry Potter 2'
+```
+```
+book.delete
+```
+
+## Scoping Methods
+
+```
+Book.where(title: 'Harry Potter')
+```
+```
+Book.find(12)
+```
+```
+Book.find_by(title: 'Harry Potter')
+```
+```
+Book.order(title: :asc)
+```
+
 
 ## Development
 

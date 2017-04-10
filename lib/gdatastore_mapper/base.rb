@@ -1,5 +1,8 @@
 require "google/cloud/datastore"
 require "gdatastore_mapper/session"
+require "gdatastore_mapper/scoping"
+require "gdatastore_mapper/associations"
+require "gdatastore_mapper/persistence"
 
 module GdatastoreMapper
   module Base
@@ -8,6 +11,12 @@ module GdatastoreMapper
     include ActiveModel::Validations
 
     attr_accessor :id, :created_at, :updated_at
+
+    def self.included(klass)
+      klass.extend Scoping
+      klass.extend Associations
+      klass.include Persistence
+    end
 
     module ClassMethods
 
@@ -23,22 +32,6 @@ module GdatastoreMapper
         end
       end
 
-      def query options = {}
-        query = Google::Cloud::Datastore::Query.new
-        query.kind self.to_s
-        query.limit options[:limit]   if options[:limit]
-        query.cursor options[:cursor] if options[:cursor]
-
-        results = dataset.run query
-        records   = results.map {|entity| self.from_entity entity }
-
-        if options[:limit] && results.size == options[:limit]
-          next_cursor = results.cursor
-        end
-
-        return records, next_cursor
-      end
-
       def from_entity entity
         record = self.new
         record.id = entity.key.id
@@ -48,25 +41,16 @@ module GdatastoreMapper
         record
       end
 
-      def find id
-        query    = Google::Cloud::Datastore::Key.new self.to_s, id.to_i
-        entities = GdatastoreMapper::Session.dataset.lookup query
-
-        from_entity entities.first if entities.any?
+      def create params
+        record = self.new params
+        record.save
+        record
       end
 
-    end # end pf ClassMethods
+    end
 
     def attributes
       self.class.attributes
-    end
-
-    def save
-      return false if !valid?
-      entity = to_entity
-      GdatastoreMapper::Session.dataset.save(entity)
-      self.id = entity.key.id
-      true
     end
 
     def to_entity
@@ -78,23 +62,9 @@ module GdatastoreMapper
       end
 
       entity['created_at'] = id ? self.created_at : Time.zone.now
-      entity["updated_at"]  = Time.zone.now
+      entity["updated_at"] = Time.zone.now
       entity
     end
 
-    def update attributes
-      attributes.each do |name, value|
-        send "#{name}=", value if respond_to? "#{name}="
-      end
-      save
-    end
-
-    def destroy
-      self.class.dataset.delete Google::Cloud::Datastore::Key.new self.class.to_s, id
-    end
-
-    def persisted?
-      id.present?
-    end
   end
 end

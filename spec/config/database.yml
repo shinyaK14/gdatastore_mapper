@@ -1,0 +1,3 @@
+test:
+  dataset_id: cloud-datastore-test-163510
+  emulator_host: localhost:8444
