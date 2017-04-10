@@ -69,10 +69,10 @@ book = Book.new(title: 'Harry Potter')
 book.save
 ```
 ```
-Book.create(title: 'Harry Potter'
+Book.create(title: 'Harry Potter')
 ```
 ```
-book.update(title: 'Harry Potter 2'
+book.update(title: 'Harry Potter 2')
 ```
 ```
 book.delete
@@ -82,9 +82,11 @@ book.delete
 
 ```
 Book.where(title: 'Harry Potter')
+=> [#<Book:0x007f913d861200 @created_at=2017-04-08 21:22:31 +0200, @title="Harry Potter", @id=70, @updated_at=2017-04-08 21:22:31 +0200>]
 ```
 ```
 Book.find(12)
+=> #<Book:0x007ff9be37e410 @created_at=2017-04-07 10:03:54 +0200, @title="Harry Potter", @id=12, @updated_at=2017-04-07 22:57:57 +0200>
 ```
 ```
 Book.find_by(title: 'Harry Potter')
