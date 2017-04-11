@@ -1,6 +1,6 @@
 # GdatastoreMapper
 
-GdatastoreMapper is a mapper framework for Google Cloud Datastore in Ruby / Ruby on Rails
+GdatastoreMapper is a mapper framework for Google Cloud Datastore in Ruby / Ruby on Rails.
 Once you install GdatastoreMapper you can use Google Cloud Datastore like ActiveRecord.
 
 ## Installation
@@ -94,7 +94,9 @@ Book.find_by(title: 'Harry Potter')
 ```
 Book.order(title: :asc)
 ```
+## Timestamp
 
+All records have created_at and updated_at. They will be updated automatically.
 
 ## Development
 
