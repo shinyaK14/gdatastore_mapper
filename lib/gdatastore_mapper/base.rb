@@ -54,17 +54,24 @@ module GdatastoreMapper
     end
 
     def to_entity
-      entity = Google::Cloud::Datastore::Entity.new
-      entity.key = Google::Cloud::Datastore::Key.new self.class.to_s, id
-
+      entity_timestamp
       attributes.each do |attribute|
-        entity[attribute] = self.send attribute if self.send attribute
+        @entity[attribute] = self.send attribute if self.send attribute
       end
-
-      entity['created_at'] = id ? self.created_at : Time.zone.now
-      entity["updated_at"] = Time.zone.now
-      entity
+      @entity
     end
 
+    private
+
+    def entity_timestamp
+      @entity = Google::Cloud::Datastore::Entity.new
+      @entity.key = Google::Cloud::Datastore::Key.new self.class.to_s, id
+      @entity['created_at'] = id ? self.created_at : Time.zone.now
+      @entity["updated_at"] = Time.zone.now
+    end
+
+    def id_ model
+      (model.to_s + '_id').to_sym
+    end
   end
 end

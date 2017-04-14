@@ -82,21 +82,89 @@ book.delete
 
 ```
 Book.where(title: 'Harry Potter')
-=> [#<Book:0x007f913d861200 @created_at=2017-04-08 21:22:31 +0200, @title="Harry Potter", @id=70, @updated_at=2017-04-08 21:22:31 +0200>]
+=> [#<Book:0x00 @created_at=2017-04-08 21:22:31 +0200, @title="Harry Potter",
+    @id=70, @updated_at=2017-04-08 21:22:31 +0200>]
 ```
 ```
 Book.find(12)
-=> #<Book:0x007ff9be37e410 @created_at=2017-04-07 10:03:54 +0200, @title="Harry Potter", @id=12, @updated_at=2017-04-07 22:57:57 +0200>
+=> #<Book:0x00 @created_at=2017-04-07 10:03:54 +0200, @title="Harry Potter",
+    @id=12, @updated_at=2017-04-07 22:57:57 +0200>
 ```
 ```
 Book.find_by(title: 'Harry Potter')
+=> #<Book:0x00 @created_at ....
 ```
 ```
 Book.order(title: :asc)
+=> [#<Book:0x00 @created_at .... ]
 ```
+
 ## Timestamp
 
 All records have created_at and updated_at. They will be updated automatically.
+
+```
+Book.first
+=> #<Book:0x00 @created_at ....
+```
+```
+Book.last
+=> #<Book:0x00 @created_at ....
+```
+```
+Book.count
+=> 100
+```
+```
+Book.all
+=> [#<Book:0x00 @created_at .... ]
+```
+
+## Associations
+
+example of one to many relationship
+
+```ruby
+class Book
+  include GdatastoreMapper::Base
+
+  attr_accessor :title
+
+  belongs_to :author
+end
+```
+
+```ruby
+class Author
+  include GdatastoreMapper::Base
+
+  attr_accessor :name
+
+  has_many :books
+end
+```
+
+books.create
+```
+j_k_rolling = Author.create(name: 'J K Rolling')
+harry_poter = j_k_rolling.books.create(title: 'Harry Poter')
+harry_poter_2 = j_k_rolling.books.create(title: 'Harry Poter 2')
+```
+books
+```
+j_k_rolling.books
+=> [#<Book:0x00 @created_at .... ]
+```
+
+books.count
+```
+j_k_rolling.books.count
+=> 2
+```
+```
+harry_poter.author
+=> [#<Author:0x00 @created_at .... ]
+```
 
 ## Development
 
