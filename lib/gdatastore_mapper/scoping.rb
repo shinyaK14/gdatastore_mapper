@@ -6,7 +6,7 @@ module GdatastoreMapper
 
     def where condition
       return nil unless condition.is_a?(Hash)
-      entities = dataset_run(where_query condition)
+      dataset_run(where_query condition)
     end
 
     def find id
@@ -21,9 +21,35 @@ module GdatastoreMapper
       where(condition)&.first
     end
 
+    def find_or_create condition
+      return nil unless condition.is_a?(Hash)
+      if record = where(condition)&.first
+        record
+      else
+        create condition
+      end
+    end
+
     def order condition
       return nil unless condition.is_a?(Hash)
       dataset_run(order_query condition)
+    end
+
+    def all
+      order(created_at: :asc)
+    end
+
+
+    def first
+      all.first
+    end
+
+    def last
+      all.last
+    end
+
+    def count
+      all.count
     end
 
     private
@@ -48,7 +74,7 @@ module GdatastoreMapper
 
     def dataset_run query
       entities = GdatastoreMapper::Session.dataset.run query
-      result = GdatastoreMapper::Relation.new(self)
+      result = GdatastoreMapper::Relation.new(self, nil)
       entities.each do |entity|
         result << (from_entity entity)
       end
