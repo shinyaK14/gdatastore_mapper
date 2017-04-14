@@ -1,3 +1,3 @@
 module GdatastoreMapper
-  VERSION = "0.1.2bata"
+  VERSION = "0.1.2"
 end
