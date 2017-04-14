@@ -99,10 +99,6 @@ Book.order(title: :asc)
 => [#<Book:0x00 @created_at .... ]
 ```
 
-## Timestamp
-
-All records have created_at and updated_at. They will be updated automatically.
-
 ```
 Book.first
 => #<Book:0x00 @created_at ....
@@ -119,6 +115,10 @@ Book.count
 Book.all
 => [#<Book:0x00 @created_at .... ]
 ```
+
+## Timestamp
+
+All records have created_at and updated_at. They will be updated automatically.
 
 ## Associations
 
@@ -146,19 +146,19 @@ end
 
 books.create
 ```
-j_k_rolling = Author.create(name: 'J K Rolling')
-harry_poter = j_k_rolling.books.create(title: 'Harry Poter')
-harry_poter_2 = j_k_rolling.books.create(title: 'Harry Poter 2')
+rolling = Author.create(name: 'J K Rolling')
+harry_poter = rolling.books.create(title: 'Harry Poter')
+harry_poter2 = rolling.books.create(title: 'Harry Poter 2')
 ```
 books
 ```
-j_k_rolling.books
+rolling.books
 => [#<Book:0x00 @created_at .... ]
 ```
 
 books.count
 ```
-j_k_rolling.books.count
+rolling.books.count
 => 2
 ```
 ```
