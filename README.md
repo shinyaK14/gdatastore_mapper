@@ -3,6 +3,18 @@
 GdatastoreMapper is a mapper framework for Google Cloud Datastore in Ruby / Ruby on Rails.
 Once you install GdatastoreMapper you can use Google Cloud Datastore like ActiveRecord.
 
+## Table of Contents
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Model Setting](#model-setting)
+- [Persistence Methods](#persistence-methods)
+- [Scoping Methods](#scoping-methods)
+- [Timestamp](#timestamp)
+- [Associations](#associations)
+  - [One to Many](#one-to-many)
+- [Development](#development)
+
 ## Requirements
 
 GdatastoreMapper requires Rails version >= 4.2 (of course it's working for Rails 5)
@@ -47,14 +59,14 @@ test:
   emulator_host: localhost:8444
 ```
 
-## Usage
+## Model Setting
 
 Only 2 things you need to do.
 
 1. To include GdatastoreMapper
 2. To set attr_accessor as column
 
-That's it!
+That's it! No need to db:migrate.
 
 ```ruby
 class Book
@@ -128,6 +140,8 @@ Book.all
 All records have created_at and updated_at. They will be updated automatically.
 
 ## Associations
+
+### One to Many
 
 example of one to many relationship
 
