@@ -24,9 +24,15 @@ google-cloud >= 0.27
 
 ## Installation
 
+Execute rails new with --skip-active-record
+```
+$ rails new your_project --skip-active-record
+```
+
 Add this line to your application's Gemfile:
 
 ```ruby
+gem 'google-cloud'
 gem 'gdatastore_mapper'
 ```
 
