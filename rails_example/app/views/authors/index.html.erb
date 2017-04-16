@@ -1,0 +1,22 @@
+<h3>Authors</h3>
+
+<%= link_to new_author_path, class: "btn btn-success btn-sm" do %>
+  <i class="glyphicon glyphicon-plus"></i>
+  <span>Add author</span>
+<% end %>
+<p>
+<% @authors.each do |author| %>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= link_to author_books_path(author) do %>
+        <h3 class="panel-title"><%= author.name %></h3>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+<% if @authors.none? %>
+  <p>No authors found.</p>
+<% end %>

@@ -1,0 +1,45 @@
+<h3><%= @author.name %></h3>
+
+<div class="media">
+  <div class="media-body">
+    <p> id :
+    <%= @author.id %></p>
+  </div>
+</div>
+
+<div class="btn-group">
+  <%= link_to edit_author_path(@author), class: "btn btn-primary btn-sm" do %>
+    <i class="glyphicon glyphicon-edit"></i>
+    <span>Edit Author</span>
+  <% end %>
+  <%= link_to author_path(@author), class: "btn btn-danger btn-sm", method: :delete do %>
+    <i class="glyphicon glyphicon-trash"></i>
+    <span>Delete Author</span>
+  <% end %>
+</div>
+
+<h3><%= @author.name %>'s Books</h3>
+
+
+<% @books.each do |book| %>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= link_to book_path(book) do %>
+        <h3 class="panel-title"><%= book.title %></h3>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+<% if @books.none? %>
+  <p>No books found.</p>
+<% end %>
+
+<%= link_to new_author_book_path, class: "btn btn-success btn-sm" do %>
+  <i class="glyphicon glyphicon-plus"></i>
+  <span>Add <%= @author.name %>'s Book</span>
+<% end %>
+
+<p>

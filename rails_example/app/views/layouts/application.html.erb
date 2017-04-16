@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gdatastore Mapper - RailsExample</title>
+    <meta charset="utf-8">
+    <meta name="viewset" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand"><a href="/">Gdatastore Mapper Rails example</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <% if flash.any? %>
+        <% flash.each do |type, message| %>
+          <div class="alert alert-<%= type %>"><%= message %></div>
+        <% end %>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
