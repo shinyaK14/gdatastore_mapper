@@ -8,7 +8,7 @@ module GdatastoreMapper
       entity = to_entity
       GdatastoreMapper::Session.dataset.save(entity)
       self.id = entity.key.id
-      update_owner(self)
+      update_owner(self, :add)
       true
     end
 
@@ -20,13 +20,13 @@ module GdatastoreMapper
     end
 
     def destroy
+      update_owner(self, :delete)
       GdatastoreMapper::Session.dataset.delete \
         Google::Cloud::Datastore::Key.new self.class.to_s, id
     end
 
     def delete
-      GdatastoreMapper::Session.dataset.delete \
-        Google::Cloud::Datastore::Key.new self.class.to_s, id
+      destroy
     end
 
     def persisted?
@@ -35,16 +35,25 @@ module GdatastoreMapper
 
     private
 
-    def update_owner belonging
+    def update_owner belonging, flg = :add
       return if self.class.belongs_to_models.nil?
       belongings_id = belonging.class.to_s.pluralize.underscore + '_id'
       self.class.belongs_to_models.each do |owner|
         owner_record = belonging.send(owner)
         existing_ids = owner_record.send(belongings_id) || []
-        owner_attr = {}
-        owner_attr[belongings_id] = (existing_ids << self.id)
-        owner_record.update(owner_attr)
+        owner_record.update(owner_attr(belongings_id, existing_ids, flg))
       end
     end
+
+    def owner_attr belongings_id, existing_ids, flg
+      owner_attr = {}
+      if flg == :add
+        owner_attr[belongings_id] = (existing_ids << self.id)
+      elsif flg == :delete
+        existing_ids.delete(self.id)
+        owner_attr[belongings_id] = existing_ids
+      end
+    end
+
   end
 end
