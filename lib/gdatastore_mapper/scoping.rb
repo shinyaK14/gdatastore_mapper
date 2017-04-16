@@ -10,7 +10,6 @@ module GdatastoreMapper
     end
 
     def find id
-      return nil unless id.is_a?(Fixnum)
       query = Google::Cloud::Datastore::Key.new self.to_s, id.to_i
       entities = GdatastoreMapper::Session.dataset.lookup query
       from_entity entities.first if entities.any?

@@ -27,6 +27,11 @@ module GdatastoreMapper
     end
 
     def belongs_to model
+      if @belongs_to_models.nil?
+        @belongs_to_models = [model.to_s]
+      else
+        @belongs_to_models << model.to_s
+      end
       self.class_eval("attr_accessor :#{model.to_s + '_id'}")
 
       define_method model do
@@ -34,6 +39,10 @@ module GdatastoreMapper
           model.to_s.classify.constantize.find self.send(id_ model)
         end
       end
+    end
+
+    def belongs_to_models
+      @belongs_to_models
     end
 
   end

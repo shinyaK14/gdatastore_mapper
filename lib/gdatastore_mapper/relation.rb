@@ -5,6 +5,11 @@ module GdatastoreMapper
       @association = association
     end
 
+    def new attributes
+      belonging_attr = attributes.merge(@association.owner_attributes)
+      @association.belonging_klass.new(belonging_attr)
+    end
+
     def create attributes
       belonging = create_belonging attributes
       update_owner belonging
