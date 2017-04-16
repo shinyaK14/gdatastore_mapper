@@ -48,11 +48,12 @@ module GdatastoreMapper
     def owner_attr belongings_id, existing_ids, flg
       owner_attr = {}
       if flg == :add
-        owner_attr[belongings_id] = (existing_ids << self.id)
+        existing_ids << self.id
       elsif flg == :delete
         existing_ids.delete(self.id)
-        owner_attr[belongings_id] = existing_ids
       end
+      owner_attr[belongings_id] = (existing_ids.uniq)
+      owner_attr
     end
 
   end
