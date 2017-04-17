@@ -1,24 +1,43 @@
-# README
+# Gdatastore Mapper Rails example
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Source code of Gdatastore Mapper Rails example. 
 
-Things you may want to cover:
+Here is [demo](https://gdatastore-mapper-sample.appspot.com/)
 
-* Ruby version
+## Versions
 
-* System dependencies
+Ruby 2.3.3
 
-* Configuration
+Rails 5.0.2
 
-* Database creation
+google-cloud 0.28.0
 
-* Database initialization
+# Model Association
 
-* How to run the test suite
+In the application containing authors and books, the author model has many books. The book belongs to author.
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+```ruby
+# app/models/author.rb
+class Author
+  include GdatastoreMapper::Base
 
-* ...
+  attr_accessor :name
+
+  has_many :books
+
+  validates :name, presence: true
+end
+```
+
+```ruby
+class Book
+  include GdatastoreMapper::Base
+
+  attr_accessor :title, :description
+
+  belongs_to :author
+
+  validates :title, presence: true
+end
+```
