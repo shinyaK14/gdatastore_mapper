@@ -41,3 +41,5 @@ class Book
   validates :title, presence: true
 end
 ```
+
+![has_many](https://cloud.githubusercontent.com/assets/9897663/25094991/e71472b4-2399-11e7-9b3d-d612b6f1e742.png)
