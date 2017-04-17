@@ -8,7 +8,7 @@ end
 gem 'rails', '~> 5.0.2'
 
 gem 'google-cloud'
-gem 'gdatastore_mapper', path: '../../gems/gdatastore_mapper'
+gem 'gdatastore_mapper'
 
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'

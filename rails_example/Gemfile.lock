@@ -1,9 +1,3 @@
-PATH
-  remote: ../../gems/gdatastore_mapper
-  specs:
-    gdatastore_mapper (0.1.2bata)
-      google-cloud (~> 0.27)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -50,7 +44,6 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
-    coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -67,6 +60,8 @@ GEM
     faraday (0.12.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    gdatastore_mapper (0.1.3)
+      google-cloud (~> 0.27)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     google-api-client (0.11.1)
@@ -148,7 +143,7 @@ GEM
       googleauth (~> 0.5.1)
       grpc (~> 1.0)
       rly (~> 0.2.3)
-    google-protobuf (3.2.0.2-universal-darwin)
+    google-protobuf (3.2.0.2)
     googleapis-common-protos (1.3.5)
       google-protobuf (~> 3.2)
       grpc (~> 1.0)
@@ -160,7 +155,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
-    grpc (1.2.2-universal-darwin)
+    grpc (1.2.2)
       google-protobuf (~> 3.1)
       googleauth (~> 0.5.1)
     grpc-google-iam-v1 (0.6.8)
@@ -201,18 +196,6 @@ GEM
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     os (0.9.6)
-    pry (0.10.4)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-byebug (3.4.2)
-      byebug (~> 9.0)
-      pry (~> 0.10)
-    pry-doc (0.10.0)
-      pry (~> 0.9)
-      yard (~> 0.9)
-    pry-rails (0.3.6)
-      pry (>= 0.10.4)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.1)
@@ -263,7 +246,6 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
-    slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -296,7 +278,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    yard (0.9.8)
     zonefile (1.04)
 
 PLATFORMS
@@ -305,14 +286,11 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
-  gdatastore_mapper!
+  gdatastore_mapper
   google-cloud
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
-  pry-byebug
-  pry-doc
-  pry-rails
   puma (~> 3.0)
   rails (~> 5.0.2)
   sass-rails (~> 5.0)
