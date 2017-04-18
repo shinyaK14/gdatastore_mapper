@@ -1,7 +1,8 @@
 require 'active_support/concern'
 require 'active_model'
+require 'google/cloud/datastore'
 
-require "gdatastore_mapper/version"
-require "gdatastore_mapper/session"
-require "gdatastore_mapper/base"
+require 'gdatastore_mapper/version'
+require 'gdatastore_mapper/session'
+require 'gdatastore_mapper/base'
 

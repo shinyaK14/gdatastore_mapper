@@ -1,14 +1,14 @@
-require "google/cloud/datastore"
-require "gdatastore_mapper/session"
-require "gdatastore_mapper/scoping"
-require "gdatastore_mapper/associations"
-require "gdatastore_mapper/persistence"
+require 'gdatastore_mapper/session'
+require 'gdatastore_mapper/scoping'
+require 'gdatastore_mapper/associations'
+require 'gdatastore_mapper/persistence'
 
 module GdatastoreMapper
   module Base
     extend ActiveSupport::Concern
     include ActiveModel::Model
     include ActiveModel::Validations
+    include ActiveModel::Validations::Callbacks
 
     attr_accessor :id, :created_at, :updated_at
 
@@ -67,7 +67,7 @@ module GdatastoreMapper
       @entity = Google::Cloud::Datastore::Entity.new
       @entity.key = Google::Cloud::Datastore::Key.new self.class.to_s, id
       @entity['created_at'] = id ? self.created_at : Time.zone.now
-      @entity["updated_at"] = Time.zone.now
+      @entity['updated_at'] = Time.zone.now
     end
 
     def id_ model

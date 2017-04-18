@@ -1,5 +1,4 @@
 # encoding: utf-8
-require "google/cloud"
 require "gdatastore_mapper/relation"
 require "gdatastore_mapper/associations/has_many"
 

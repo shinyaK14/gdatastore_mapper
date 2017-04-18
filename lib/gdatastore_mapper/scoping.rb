@@ -1,4 +1,3 @@
-require "google/cloud"
 require "gdatastore_mapper/relation"
 
 module GdatastoreMapper
@@ -10,6 +9,7 @@ module GdatastoreMapper
     end
 
     def find id
+      return nil if id.nil?
       query = Google::Cloud::Datastore::Key.new self.to_s, id.to_i
       entities = GdatastoreMapper::Session.dataset.lookup query
       from_entity entities.first if entities.any?

@@ -1,5 +1,3 @@
-require "google/cloud"
-
 module GdatastoreMapper
   class Session
 

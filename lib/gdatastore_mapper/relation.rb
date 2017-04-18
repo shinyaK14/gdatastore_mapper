@@ -13,6 +13,7 @@ module GdatastoreMapper
     def create attributes
       belonging = create_belonging attributes
       update_owner belonging
+      belonging
     end
 
     private
