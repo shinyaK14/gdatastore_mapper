@@ -14,6 +14,7 @@ Once you install GdatastoreMapper you can use Google Cloud Datastore like Active
 - [Timestamp](#timestamp)
 - [Associations](#associations)
   - [One to Many](#one-to-many)
+- [Contact](#contact)
 - [Development](#development)
 
 ## Demo
@@ -196,6 +197,11 @@ rowling.books.count
 harry_poter.author
 => [#<Author:0x00 @name="J. K. Rowling" .... ]
 ```
+
+## Contact
+
+Please shoot me an e-mail if you find any issues, ideas and comments. shinya.kitamura.14@gmail.com
+Thanks!
 
 ## Development
 
