@@ -6,9 +6,11 @@ RSpec.describe GdatastoreMapper::Scoping do
     allow(Rails).to receive(:application).and_return(ConfigMock)
   end
 
+  let(:rowling) { Author.create(name: 'J. K. Rowling') }
+  let(:book) { rowling.books.create(title: 'Harry Poter') }
+
   context 'where' do
     it 'returns results' do
-      Book.create(title: 'Harry Poter')
       result = Book.where(title: 'Harry Poter')
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
@@ -22,23 +24,27 @@ RSpec.describe GdatastoreMapper::Scoping do
 
   context 'find' do
     it 'returns record' do
-      book = Book.last
       expect(Book.find(book.id).id).to eq(book.id)
-    end
-
-    it 'returns nil if condition is invalid' do
-      expect(Book.find('a')).to be_nil
     end
   end
 
   context 'find_by' do
     it 'returns record' do
-      book = Book.first
-      expect(Book.find_by(title: book.title).id).to eq(book.id)
+      expect(Book.find_by(title: book.title).title).to eq(book.title)
     end
 
     it 'returns nil if condition is invalid' do
       expect(Book.find_by('a')).to be_nil
+    end
+  end
+
+  context 'find_or_create' do
+    it 'returns record if it exists' do
+      expect(Book.find_or_create(title: book.title).title).to eq(book.title)
+    end
+
+    it 'returns nil if condition is invalid' do
+      expect(Book.find_or_create('a')).to be_nil
     end
   end
 
@@ -48,6 +54,29 @@ RSpec.describe GdatastoreMapper::Scoping do
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
       # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+    end
+  end
+
+  context 'all' do
+    it 'returns results' do
+      result = Book.all
+      expect(result).to be_kind_of(GdatastoreMapper::Relation)
+      expect(result.first).to be_kind_of(Book)
+      # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+    end
+  end
+
+  context 'first' do
+    it 'returns results' do
+      result = Book.first
+      expect(result).to be_kind_of(Book)
+      # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+    end
+  end
+
+  context 'count' do
+    it 'returns results' do
+      expect(Book.count).to be_kind_of(Fixnum)
     end
   end
 end

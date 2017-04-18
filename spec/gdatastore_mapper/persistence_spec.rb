@@ -12,7 +12,6 @@ RSpec.describe GdatastoreMapper::Persistence do
       expect(book.save).to be true
       expect(book.id).not_to be nil
       expect(book.title).to eq('Harry Poter')
-      expect(book.destroy).to be true
     end
 
     it 'updates record' do
@@ -28,7 +27,7 @@ RSpec.describe GdatastoreMapper::Persistence do
     it 'deletes record' do
       expect{
         Book.last.delete
-      }.to change(Book, :count).by(-1)
+      }.to change{ Book.count }.by(-1)
     end
 
   end
