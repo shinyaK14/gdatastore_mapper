@@ -123,20 +123,20 @@ Book.find(12)
 ```
 ```
 Book.find_by(title: 'Harry Potter')
-=> #<Book:0x00 @created_at ....
+=> #<Book:0x00 @title="Harry Potter" ....
 ```
 ```
 Book.order(title: :asc)
-=> [#<Book:0x00 @created_at .... ]
+=> [#<Book:0x00 @title="Harry Potter" .... ]
 ```
 
 ```
 Book.first
-=> #<Book:0x00 @created_at ....
+=> #<Book:0x00 @title="Harry Potter" ....
 ```
 ```
 Book.last
-=> #<Book:0x00 @created_at ....
+=> #<Book:0x00 @title="Harry Potter" ....
 ```
 ```
 Book.count
@@ -144,7 +144,7 @@ Book.count
 ```
 ```
 Book.all
-=> [#<Book:0x00 @created_at .... ]
+=> [#<Book:0x00 @title="Harry Potter" .... ]
 ```
 
 ## Timestamp
@@ -179,24 +179,24 @@ end
 
 books.create
 ```
-rolling = Author.create(name: 'J K Rolling')
+rowling = Author.create(name: 'J. K. Rowling')
 harry_poter = rolling.books.create(title: 'Harry Poter')
 harry_poter2 = rolling.books.create(title: 'Harry Poter 2')
 ```
 books
 ```
-rolling.books
-=> [#<Book:0x00 @created_at .... ]
+rowling.books
+=> [#<Book:0x00 @title="Harry Potter" .... ]
 ```
 
 books.count
 ```
-rolling.books.count
+rowling.books.count
 => 2
 ```
 ```
 harry_poter.author
-=> [#<Author:0x00 @created_at .... ]
+=> [#<Author:0x00 @name="J. K. Rowling" .... ]
 ```
 
 ## Development
