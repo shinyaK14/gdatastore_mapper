@@ -24,8 +24,7 @@ Source code is [here](https://github.com/shinyaK14/gdatastore_mapper/tree/master
 
 ## Requirements
 
-GdatastoreMapper requires Rails version >= 4.2 (of course it's working for Rails 5)
-google-cloud >= 0.27
+GdatastoreMapper requires Rails version >= 5
 
 
 ## Installation
@@ -38,7 +37,6 @@ $ rails new your_project --skip-active-record
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'google-cloud'
 gem 'gdatastore_mapper'
 ```
 
