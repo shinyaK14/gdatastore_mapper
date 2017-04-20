@@ -1,4 +1,5 @@
 # GdatastoreMapper
+[![CircleCI](https://circleci.com/gh/shinyaK14/gdatastore_mapper/tree/master.svg?style=svg)](https://circleci.com/gh/shinyaK14/gdatastore_mapper/tree/master)
 
 GdatastoreMapper is a mapper framework for Google Cloud Datastore in Ruby / Ruby on Rails.
 Once you install GdatastoreMapper you can use Google Cloud Datastore like ActiveRecord.
