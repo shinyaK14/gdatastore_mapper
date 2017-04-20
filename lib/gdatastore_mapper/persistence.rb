@@ -3,24 +3,30 @@ module GdatastoreMapper
 
     def save
       return false if !valid?
-      entity = to_entity
-      GdatastoreMapper::Session.dataset.save(entity)
-      self.id = entity.key.id
-      update_owner(self, :add)
-      true
+      run_callbacks :save do
+        entity = to_entity
+        GdatastoreMapper::Session.dataset.save(entity)
+        self.id = entity.key.id
+        update_owner(self, :add)
+        true
+      end
     end
 
     def update attributes
-      attributes.each do |name, value|
-        send "#{name}=", value if respond_to? "#{name}="
+      run_callbacks :update do
+        attributes.each do |name, value|
+          send "#{name}=", value if respond_to? "#{name}="
+        end
+        save
       end
-      save
     end
 
     def destroy
-      update_owner(self, :delete)
-      GdatastoreMapper::Session.dataset.delete \
-        Google::Cloud::Datastore::Key.new self.class.to_s, id
+      run_callbacks :destroy do
+        update_owner(self, :delete)
+        GdatastoreMapper::Session.dataset.delete \
+          Google::Cloud::Datastore::Key.new self.class.to_s, id
+      end
     end
 
     def delete

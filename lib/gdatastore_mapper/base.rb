@@ -9,13 +9,15 @@ module GdatastoreMapper
     include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
+    include ActiveModel::Callbacks
 
     attr_accessor :id, :created_at, :updated_at
 
-    def self.included(klass)
-      klass.extend Scoping
-      klass.extend Associations
-      klass.include Persistence
+    included do
+      define_model_callbacks :save, :update, :destroy
+      extend Scoping
+      extend Associations
+      include Persistence
     end
 
     module ClassMethods
