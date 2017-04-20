@@ -15,6 +15,7 @@ Once you install GdatastoreMapper you can use Google Cloud Datastore like Active
 - [Timestamp](#timestamp)
 - [Associations](#associations)
   - [One to Many](#one-to-many)
+- [Callbacks](#callbacks)
 - [Contact](#contact)
 - [Development](#development)
 
@@ -154,6 +155,7 @@ All records have created_at and updated_at. They will be updated automatically.
 ## Associations
 
 ### One to Many
+Associations can be set the same as Active Record.
 
 example of one to many relationship
 
@@ -197,6 +199,22 @@ rowling.books.count
 ```
 harry_poter.author
 => [#<Author:0x00 @name="J. K. Rowling" .... ]
+```
+
+## Callbacks
+
+```ruby
+class Book
+  include GdatastoreMapper::Base
+
+  before_save :something_before_save
+
+  private
+  def something_before_save
+    something that you want
+  end
+
+end
 ```
 
 ## Contact
