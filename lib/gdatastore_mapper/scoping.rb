@@ -3,9 +3,9 @@ require "gdatastore_mapper/relation"
 module GdatastoreMapper
   module Scoping
 
-    def where condition
+    def where condition, &block
       return nil unless condition.is_a?(Hash)
-      dataset_run(where_query condition)
+      dataset_run(where_query(condition), &block)
     end
 
     def find id
@@ -29,15 +29,15 @@ module GdatastoreMapper
       end
     end
 
-    def order condition
+    def order condition, &block
       return nil unless condition.is_a?(Hash)
-      dataset_run(order_query condition)
+      dataset_run(order_query(condition), &block)
     end
 
-    def all
-      order(created_at: :asc)
+    def all &block
+      order(created_at: :asc, &block)
     end
-
+    alias_method :each, :all
 
     def first
       all.first
@@ -71,11 +71,14 @@ module GdatastoreMapper
       query
     end
 
-    def dataset_run query
+    def dataset_run query, &block
       entities = GdatastoreMapper::Session.dataset.run query
       result = GdatastoreMapper::Relation.new(self, nil)
       entities.each do |entity|
-        result << (from_entity entity)
+        record = from_entity(entity)
+        block.call(record) if block_given?
+        record = find(record.id)
+        result << record if record
       end
       result
     end

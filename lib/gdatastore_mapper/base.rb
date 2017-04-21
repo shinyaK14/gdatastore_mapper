@@ -2,6 +2,7 @@ require 'gdatastore_mapper/session'
 require 'gdatastore_mapper/scoping'
 require 'gdatastore_mapper/associations'
 require 'gdatastore_mapper/persistence'
+require 'gdatastore_mapper/persistence/class_methods'
 
 module GdatastoreMapper
   module Base
@@ -18,6 +19,7 @@ module GdatastoreMapper
       extend Scoping
       extend Associations
       include Persistence
+      extend Persistence::ClassMethods
     end
 
     module ClassMethods
@@ -40,12 +42,6 @@ module GdatastoreMapper
         entity.properties.to_hash.each do |name, value|
           record.send "#{name}=", value if record.respond_to? "#{name}="
         end
-        record
-      end
-
-      def create params
-        record = self.new params
-        record.save
         record
       end
 

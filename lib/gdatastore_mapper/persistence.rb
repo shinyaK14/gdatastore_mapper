@@ -13,6 +13,7 @@ module GdatastoreMapper
     end
 
     def update attributes
+      return false if !valid?
       run_callbacks :update do
         attributes.each do |name, value|
           send "#{name}=", value if respond_to? "#{name}="
