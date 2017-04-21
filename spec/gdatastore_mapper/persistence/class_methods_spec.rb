@@ -17,6 +17,7 @@ RSpec.describe GdatastoreMapper::Persistence::ClassMethods do
   context 'delete_all' do
     it 'deletes all records' do
       expect(Book.delete_all).to be true
+      sleep 1
       expect(Book.count).to eq 0
     end
   end
