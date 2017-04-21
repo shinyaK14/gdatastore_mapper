@@ -55,7 +55,7 @@ RSpec.describe GdatastoreMapper::Scoping do
       result = Book.order(updated_at: :desc)
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
-      # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+      expect(result.first.updated_at).to be >= result.last.updated_at
     end
   end
 
@@ -64,7 +64,7 @@ RSpec.describe GdatastoreMapper::Scoping do
       result = Book.all
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
-      # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+      expect(result.first.updated_at).to be < result.last.updated_at
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe GdatastoreMapper::Scoping do
     it 'returns results' do
       result = Book.first
       expect(result).to be_kind_of(Book)
-      # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+      expect(result.updated_at).to be <= Book.last.updated_at
     end
   end
 
