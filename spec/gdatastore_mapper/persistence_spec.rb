@@ -37,7 +37,6 @@ RSpec.describe GdatastoreMapper::Persistence do
       expect(author.comment).to be_nil
       author.save
       expect(author.comment).to eq('before_save')
-      author.delete
     end
 
     it 'executes before update' do
@@ -45,7 +44,6 @@ RSpec.describe GdatastoreMapper::Persistence do
       expect(book.description).to be_nil
       book.update(title: 'Romeo and Juliet')
       expect(book.description).to eq('before_update')
-      book.delete
     end
   end
 end

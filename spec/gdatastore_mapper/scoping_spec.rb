@@ -13,8 +13,10 @@ RSpec.describe GdatastoreMapper::Scoping do
     it 'returns results' do
       result = Book.where(title: 'Harry Poter')
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
-      expect(result.first).to be_kind_of(Book)
-      expect(result.last.title).to eq('Harry Poter')
+      if result.count > 0
+        expect(result.first).to be_kind_of(Book)
+        expect(result.last.title).to eq('Harry Poter')
+      end
     end
 
     it 'returns nil if condition is invalid' do
@@ -63,6 +65,14 @@ RSpec.describe GdatastoreMapper::Scoping do
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
       # expect(result.first.updated_at).to be_more_than(result.last.updated_at)
+    end
+  end
+
+  context 'each' do
+    it 'allows to pass block' do
+      Book.each do |book|
+        expect(book).to be_kind_of(Book)
+      end
     end
   end
 
