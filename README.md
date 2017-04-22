@@ -91,6 +91,8 @@ end
 
 ## Persistence Methods
 
+new record
+
 ```
 book = Book.new
 book.title = 'Harry Potter'
@@ -103,11 +105,20 @@ book.save
 ```
 Book.create(title: 'Harry Potter')
 ```
+
+update
+
 ```
 book.update(title: 'Harry Potter 2')
 ```
+
+delete
+
 ```
 book.delete
+```
+```
+Book.delete_all
 ```
 
 ## Scoping Methods
