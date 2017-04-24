@@ -1,0 +1,5 @@
+en:
+  errors:
+    messages:
+      required: "must exist"
+      taken: "has already been taken"
