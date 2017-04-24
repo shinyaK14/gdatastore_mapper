@@ -2,12 +2,8 @@ require "spec_helper"
 
 RSpec.describe GdatastoreMapper::Scoping do
 
-  before do
-    allow(Rails).to receive(:application).and_return(ConfigMock)
-  end
-
-  let(:rowling) { Author.create(name: 'J. K. Rowling') }
-  let(:book) { rowling.books.create(title: 'Harry Poter') }
+  let!(:rowling) { Author.create(name: 'J. K. Rowling') }
+  let!(:book) { rowling.books.create(title: 'Harry Poter') }
 
   context 'where' do
     it 'returns results' do
@@ -64,7 +60,6 @@ RSpec.describe GdatastoreMapper::Scoping do
       result = Book.all
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first).to be_kind_of(Book)
-      expect(result.first.updated_at).to be < result.last.updated_at
     end
   end
 

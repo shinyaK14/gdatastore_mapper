@@ -2,10 +2,6 @@ require "spec_helper"
 
 RSpec.describe GdatastoreMapper::Persistence::ClassMethods do
 
-  before do
-    allow(Rails).to receive(:application).and_return(ConfigMock)
-  end
-
   context 'create' do
     it 'saves record' do
       book = Book.create(title: 'Harry Poter 4')

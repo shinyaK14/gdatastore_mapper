@@ -1,7 +1,11 @@
 class Author
   include GdatastoreMapper::Base
 
-  attr_accessor :name, :comment
+  attr_accessor :name, :comment, :email
+
+  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, length: { in: 3..20 }
+  validates_uniqueness_of :email
 
   has_many :books
 

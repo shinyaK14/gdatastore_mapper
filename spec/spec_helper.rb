@@ -26,5 +26,11 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before do
+    allow(Rails).to receive(:application).and_return(ConfigMock)
+    Author.delete_all
+    Book.delete_all
+  end
 end
 

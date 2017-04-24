@@ -2,11 +2,7 @@ require "spec_helper"
 
 RSpec.describe GdatastoreMapper::Relation do
 
-  before do
-    allow(Rails).to receive(:application).and_return(ConfigMock)
-  end
-
-  let(:rowling) { Author.create(name: 'J. K. Rowling') }
+  let(:rowling) { Author.create(name: 'J. K. Rowling', email: 'rowling@example.com') }
 
   context 'new, save' do
     it 'new and saves record through relation' do

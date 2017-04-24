@@ -2,11 +2,7 @@ require "spec_helper"
 
 RSpec.describe GdatastoreMapper::Associations do
 
-  before do
-    allow(Rails).to receive(:application).and_return(ConfigMock)
-  end
-
-  let(:rowling) { Author.create(name: 'J. K. Rowling') }
+  let(:rowling) { Author.create(name: 'J. K. Rowling', email: 'rowling@example.com') }
   let(:harry_poter) { rowling.books.create(title: 'Harry Poter') }
   let(:harry_poter2) { rowling.books.create(title: 'Harry Poter 2') }
 
