@@ -16,6 +16,7 @@ Once you install GdatastoreMapper you can use Google Cloud Datastore like Active
 - [Associations](#associations)
   - [One to Many](#one-to-many)
 - [Callbacks](#callbacks)
+- [Validations](#validations)
 - [Contact](#contact)
 - [Development](#development)
 
@@ -227,6 +228,21 @@ class Book
 
 end
 ```
+
+## Validations
+
+```ruby
+class Author
+  include GdatastoreMapper::Base
+
+  attr_accessor :email
+
+  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, length: { in: 3..20 }
+  validates_uniqueness_of :email
+end
+```
+
 
 ## Contact
 
