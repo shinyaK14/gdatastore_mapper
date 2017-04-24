@@ -8,6 +8,7 @@ require 'rails'
 require 'active_model'
 require 'active_support/core_ext/string/zones'
 require 'active_support/time_with_zone'
+require 'rspec/retry'
 
 Time.zone = 'UTC'
 
@@ -25,6 +26,11 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.display_try_failure_messages = true
+  config.around do |ex|
+    ex.run_with_retry retry: 3
   end
 
   config.before do
