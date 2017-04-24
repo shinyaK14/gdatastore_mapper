@@ -3,6 +3,7 @@ require 'gdatastore_mapper/scoping'
 require 'gdatastore_mapper/associations'
 require 'gdatastore_mapper/persistence'
 require 'gdatastore_mapper/persistence/class_methods'
+require 'gdatastore_mapper/validations'
 
 module GdatastoreMapper
   module Base
@@ -20,6 +21,7 @@ module GdatastoreMapper
       extend Associations
       include Persistence
       extend Persistence::ClassMethods
+      extend Validations
     end
 
     module ClassMethods
