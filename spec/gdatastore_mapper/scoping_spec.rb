@@ -4,6 +4,7 @@ RSpec.describe GdatastoreMapper::Scoping do
 
   let!(:rowling) { Author.create(name: 'J. K. Rowling') }
   let!(:book) { rowling.books.create(title: 'Harry Poter') }
+  let!(:book2) { rowling.books.create(title: 'Harry Poter 2') }
 
   context 'where' do
     it 'returns results' do
@@ -82,6 +83,14 @@ RSpec.describe GdatastoreMapper::Scoping do
   context 'count' do
     it 'returns results' do
       expect(Book.count).to be_kind_of(Fixnum)
+    end
+  end
+
+  context 'limit' do
+    it 'returns results' do
+      result = Book.limit(1)
+      expect(result).to be_kind_of(GdatastoreMapper::Relation)
+      expect(result.count).to eq(1)
     end
   end
 end

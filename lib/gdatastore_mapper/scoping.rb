@@ -51,11 +51,15 @@ module GdatastoreMapper
       all.count
     end
 
+    def limit condition
+      return nil unless condition.is_a?(Fixnum)
+      all[0..condition-1]
+    end
+
     private
 
     def where_query condition
-      query = Google::Cloud::Datastore::Query.new
-      query.kind self.to_s
+      query = Google::Cloud::Datastore::Query.new.kind(self.to_s)
       condition.each do |property, value|
         query.where(property.to_s, '=', value)
       end
@@ -63,8 +67,7 @@ module GdatastoreMapper
     end
 
     def order_query condition
-      query = Google::Cloud::Datastore::Query.new
-      query.kind self.to_s
+      query = Google::Cloud::Datastore::Query.new.kind(self.to_s)
       condition.each do |property, value|
         query.order(property.to_s, value)
       end
