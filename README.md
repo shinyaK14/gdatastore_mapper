@@ -15,6 +15,7 @@ Once you install GdatastoreMapper you can use Google Cloud Datastore like Active
 - [Timestamp](#timestamp)
 - [Associations](#associations)
   - [One to Many](#one-to-many)
+  - [Method Chaining](#method-chaining)
 - [Callbacks](#callbacks)
 - [Validations](#validations)
 - [Contact](#contact)
@@ -211,6 +212,16 @@ rowling.books.count
 ```
 harry_poter.author
 => [#<Author:0x00 @name="J. K. Rowling" .... ]
+```
+### Method Chaining
+
+```
+rowling.books.order(created_at: :desc).limit(3)
+=> [#<Book:0x00 @title="Harry Potter" .... ]
+```
+```
+rowling.books.where(series: 'Harry Potter').order(published_at: :asc).limit(3)
+=> [#<Book:0x00 @title="Harry Potter" .... ]
 ```
 
 ## Callbacks
