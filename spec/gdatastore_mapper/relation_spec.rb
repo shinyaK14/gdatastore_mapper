@@ -12,7 +12,6 @@ RSpec.describe GdatastoreMapper::Relation do
       expect(book.id).not_to be nil
       jkrowling = Author.find(rowling.id)
       expect(jkrowling.books.last.title).to eq(book.title)
-      book.delete
     end
 
     it  'creates record' do
@@ -21,7 +20,6 @@ RSpec.describe GdatastoreMapper::Relation do
       expect(book.id).not_to be nil
       jkrowling = Author.find(rowling.id)
       expect(jkrowling.books.last.title).to eq(book.title)
-      book.delete
     end
 
   end

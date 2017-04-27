@@ -1,5 +1,11 @@
+require 'gdatastore_mapper/relation/query_methods'
+
 module GdatastoreMapper
   class Relation < Array
+    include QueryMethods
+
+    attr_accessor :klass, :association
+
     def initialize(klass, association)
       @klass = klass
       @association = association
@@ -30,5 +36,6 @@ module GdatastoreMapper
       owner_attr[@association.belonging_id] = (existing_ids << belonging.id)
       @association.owner.update(owner_attr)
     end
+
   end
 end
