@@ -9,7 +9,7 @@ RSpec.describe GdatastoreMapper::QueryMethods do
 
   context 'order' do
     it 'returns relation as result of order' do
-      result = rowling.books.where(author_id: rowling.id).order(title: :desc)
+      result = rowling.books.order(title: :desc)
       expect(result).to be_kind_of(GdatastoreMapper::Relation)
       expect(result.first.id).to eq(book3.id)
     end
