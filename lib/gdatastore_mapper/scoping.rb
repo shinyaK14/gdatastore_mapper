@@ -4,7 +4,9 @@ module GdatastoreMapper
   module Scoping
 
     def where condition, &block
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       dataset_run(where_query(condition), &block)
     end
 
@@ -16,12 +18,16 @@ module GdatastoreMapper
     end
 
     def find_by condition
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       where(condition)&.first
     end
 
     def find_or_create condition
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       if record = where(condition)&.first
         record
       else
@@ -30,7 +36,9 @@ module GdatastoreMapper
     end
 
     def order condition, &block
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       dataset_run(order_query(condition), &block)
     end
 
@@ -52,7 +60,9 @@ module GdatastoreMapper
     end
 
     def limit condition
-      return nil unless condition.is_a?(Fixnum)
+      unless condition.is_a?(Fixnum)
+        raise ArgumentError, "only Fixnum are allowed"
+      end
       all[0..condition-1]
     end
 
@@ -83,6 +93,7 @@ module GdatastoreMapper
         record = find(record.id)
         result << record if record
       end
+      result.query = query
       result
     end
   end

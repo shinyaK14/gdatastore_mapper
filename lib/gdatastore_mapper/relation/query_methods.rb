@@ -3,12 +3,16 @@ module GdatastoreMapper
     extend ActiveSupport::Concern
 
     def order condition, &block
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       dataset_run(order_query(condition), &block)
     end
 
     def where condition, &block
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       dataset_run(where_query(condition), &block)
     end
 
@@ -20,12 +24,16 @@ module GdatastoreMapper
     end
 
     def find_by condition
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       where(condition)&.first
     end
 
     def find_or_create condition
-      return nil unless condition.is_a?(Hash)
+      unless condition.is_a?(Hash)
+        raise ArgumentError, "only Hash are allowed"
+      end
       if record = where(condition)&.first
         record
       else
@@ -34,7 +42,9 @@ module GdatastoreMapper
     end
 
     def limit condition
-      return nil unless condition.is_a?(Fixnum)
+      unless condition.is_a?(Fixnum)
+        raise ArgumentError, "only Fixnum are allowed"
+      end
       self[0..condition-1]
     end
 
@@ -45,19 +55,19 @@ module GdatastoreMapper
     end
 
     def order_query condition
-      query = Google::Cloud::Datastore::Query.new.kind(in_class)
+      self.query ||= Google::Cloud::Datastore::Query.new.kind(in_class)
       condition.each do |property, value|
-        query.order(property.to_s, value)
+        self.query.order(property.to_s, value)
       end
-      query
+      self.query
     end
 
     def where_query condition
-      query = Google::Cloud::Datastore::Query.new.kind(in_class)
+      self.query ||= Google::Cloud::Datastore::Query.new.kind(in_class)
       condition.each do |property, value|
-        query.where(property.to_s, '=', value)
+        self.query.where(property.to_s, '=', value)
       end
-      query
+      self.query
     end
 
     def dataset_run query, &block
@@ -68,6 +78,7 @@ module GdatastoreMapper
         block.call(record) if block_given?
         result << record if record
       end
+      result.query = query
       result
     end
 

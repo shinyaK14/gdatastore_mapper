@@ -16,8 +16,8 @@ RSpec.describe GdatastoreMapper::Scoping do
       end
     end
 
-    it 'returns nil if condition is invalid' do
-      expect(Book.where(123)).to be_nil
+    it 'raises ArgumentError if condition is invalid' do
+      expect{ Book.where(123) }.to raise_error(ArgumentError)
     end
   end
 
@@ -32,8 +32,8 @@ RSpec.describe GdatastoreMapper::Scoping do
       expect(Book.find_by(title: book.title).title).to eq(book.title)
     end
 
-    it 'returns nil if condition is invalid' do
-      expect(Book.find_by('a')).to be_nil
+    it 'raises ArgumentError if condition is invalid' do
+      expect{ Book.find_by('a') }.to raise_error(ArgumentError)
     end
   end
 
@@ -42,8 +42,8 @@ RSpec.describe GdatastoreMapper::Scoping do
       expect(Book.find_or_create(title: book.title).title).to eq(book.title)
     end
 
-    it 'returns nil if condition is invalid' do
-      expect(Book.find_or_create('a')).to be_nil
+    it 'raises ArgumentError if condition is invalid' do
+      expect{ Book.find_or_create('a') }.to raise_error(ArgumentError)
     end
   end
 
