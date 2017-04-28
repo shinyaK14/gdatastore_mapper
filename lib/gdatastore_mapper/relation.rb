@@ -4,7 +4,7 @@ module GdatastoreMapper
   class Relation < Array
     include QueryMethods
 
-    attr_accessor :klass, :association
+    attr_accessor :klass, :association, :query
 
     def initialize(klass, association)
       @klass = klass
