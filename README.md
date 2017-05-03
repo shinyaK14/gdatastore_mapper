@@ -23,7 +23,7 @@ Once you install GdatastoreMapper you can use Google Cloud Datastore like Active
 
 ## Demo
 
-Here is [demo](https://gdatastore-mapper-sample.appspot.com/). The demo works with Google Cloud Datastore.
+Here is [demo](https://gdatastore-mapper.herokuapp.com/). The demo works with Google Cloud Datastore.
 
 Source code is [here](https://github.com/shinyaK14/gdatastore_mapper/tree/master/rails_example).
 

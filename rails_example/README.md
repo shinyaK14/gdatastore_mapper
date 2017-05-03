@@ -2,7 +2,7 @@
 
 Source code of Gdatastore Mapper Rails example. 
 
-Here is [demo](https://gdatastore-mapper-sample.appspot.com/)
+Here is [demo](https://gdatastore-mapper.herokuapp.com/)
 
 ## Versions
 
